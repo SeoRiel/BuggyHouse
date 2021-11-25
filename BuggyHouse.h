@@ -1,13 +1,21 @@
 #pragma once
+#include <list>
+#include <memory>
+#include "Bug.h"
 #include "D2DFramework.h"
-
-// 임의의 위치에 벌레 40마리 그리기
-// 컨테이너 : 아무곳에서 삭제, 삽입
-	// std::list<>
-	// pointer vs smart-pointer
-	// Actor <- Bug class
 
 class BuggyHouse : public D2DFramework
 {
+private:
+	std::unique_ptr<Actor> mspBackgound;
+	std::list<std::unique_ptr<Bug>> mBuglist;
+
+public:
+	virtual HRESULT Initialize(
+	HINSTANCE hInstance, LPCWSTR title = L"Buggy House",
+		UINT width = 1024, UINT height = 768) override;
+
+	virtual void Release() override;
+	virtual void Render() override;
 };
 
